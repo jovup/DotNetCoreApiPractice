@@ -56,6 +56,8 @@ namespace DotNetCoreApiPractice.Models
                 entity.Property(e => e.DateModified)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("bit");
             });
 
             modelBuilder.Entity<CourseInstructor>(entity =>
@@ -111,6 +113,8 @@ namespace DotNetCoreApiPractice.Models
                 entity.Property(e => e.DateModified)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("bit");
             });
 
             modelBuilder.Entity<Enrollment>(entity =>
@@ -183,6 +187,8 @@ namespace DotNetCoreApiPractice.Models
                 entity.Property(e => e.DateModified)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("bit");
             });
 
             modelBuilder.Entity<VwCourseStudentCount>(entity =>

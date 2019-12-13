@@ -24,7 +24,7 @@ namespace DotNetCoreApiPractice.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
         {
-            return await _context.Department.ToListAsync();
+            return await _context.Department.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         // GET: api/Departments/5
@@ -33,7 +33,7 @@ namespace DotNetCoreApiPractice.Controllers
         {
             var department = await _context.Department.FindAsync(id);
 
-            if (department == null)
+            if (department == null || department.IsDeleted)
             {
                 return NotFound();
             }

@@ -24,7 +24,7 @@ namespace DotNetCoreApiPractice.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
-            return await _context.Person.ToListAsync();
+            return await _context.Person.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         // GET: api/People/5
@@ -33,7 +33,7 @@ namespace DotNetCoreApiPractice.Controllers
         {
             var person = await _context.Person.FindAsync(id);
 
-            if (person == null)
+            if (person == null || person.IsDeleted)
             {
                 return NotFound();
             }
@@ -97,7 +97,9 @@ namespace DotNetCoreApiPractice.Controllers
                 return NotFound();
             }
 
-            _context.Person.Remove(person);
+            person.IsDeleted = true;
+            person.DateModified = DateTime.Now;
+            _context.Update(person);
             await _context.SaveChangesAsync();
 
             return person;
