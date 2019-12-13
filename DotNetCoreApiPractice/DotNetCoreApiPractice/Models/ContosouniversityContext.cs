@@ -52,6 +52,10 @@ namespace DotNetCoreApiPractice.Models
                     .WithMany(p => p.Course)
                     .HasForeignKey(d => d.DepartmentId)
                     .HasConstraintName("FK_dbo.Course_dbo.Department_DepartmentID");
+
+                entity.Property(e => e.DateModified)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<CourseInstructor>(entity =>
@@ -103,6 +107,10 @@ namespace DotNetCoreApiPractice.Models
                     .WithMany(p => p.Department)
                     .HasForeignKey(d => d.InstructorId)
                     .HasConstraintName("FK_dbo.Department_dbo.Instructor_InstructorID");
+
+                entity.Property(e => e.DateModified)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<Enrollment>(entity =>
@@ -171,6 +179,10 @@ namespace DotNetCoreApiPractice.Models
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.DateModified)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<VwCourseStudentCount>(entity =>
