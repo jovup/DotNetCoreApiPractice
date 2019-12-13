@@ -64,6 +64,7 @@ namespace DotNetCoreApiPractice.Controllers
                 return BadRequest();
             }
 
+            course.DateModified = DateTime.Now;
             _context.Entry(course).State = EntityState.Modified;
 
             try
@@ -91,6 +92,7 @@ namespace DotNetCoreApiPractice.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
+            course.DateModified = DateTime.Now;
             _context.Course.Add(course);
             await _context.SaveChangesAsync();
 
